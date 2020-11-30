@@ -1,0 +1,195 @@
+{% extends "layout.html" %}
+{% block body %}
+<style>
+	.form-control {
+		font-size: 17px;
+	}
+
+	.account-img {
+		height: 125px;
+		width: 125px;
+		margin-right: 20px;
+		margin-bottom: 16px;
+	}
+</style>
+<!-- Start Banner Area -->
+<section class="home-banner-area relativ">
+	<div class="container">
+		<div class="row fullscreen d-flex align-items-center justify-content-center">
+			<div class="banner-content col-lg-8 col-md-12">
+				<h1 class="wow fadeIn site-heading" data-wow-duration="2s">Blogepedia</h1>
+				<p class="text-white">
+					Let's Create together , a community for your experiences and thoughts and the derivations from ones life for the generation<br>
+					ahead. A space for everyone.<br>
+					WELCOME TO BLOGEPEDIA
+				</p>
+
+				<div class="input-wrap">
+					<form action="" class="form-box d-flex justify-content-between">
+						<input type="text" placeholder="Search Key words Or headings Or Author" class="form-control"
+							name="username">
+						<button type="submit" class="btn search-btn">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rocket-img">
+		<img src="{{url_for('static' , filename='img/rocket.png')}}" alt="">
+	</div>
+</section>
+<!-- End Banner Area -->
+
+
+<!-- this will be enabled once I make the add the category feature in database -->
+<!-- Start top-category-widget Area
+<section class="top-category-widget-area pt-90 pb-90 ">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="single-cat-widget">
+					<div class="content relative">
+						<div class="overlay overlay-bg"></div>
+						<a href="#" target="_blank">
+							<div class="thumb">
+								<img class="content-image img-fluid d-block mx-auto"
+									src="{{url_for('static' , filename='img/blog/cat-widget1.jpg')}}" alt="">
+							</div>
+							<div class="content-details">
+								<h4 class="content-title mx-auto text-uppercase">Social life</h4>
+								<span></span>
+								<p>Enjoy your social life together</p>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="single-cat-widget">
+					<div class="content relative">
+						<div class="overlay overlay-bg"></div>
+						<a href="#" target="_blank">
+							<div class="thumb">
+								<img class="content-image img-fluid d-block mx-auto"
+									src="{{url_for('static' , filename='img/blog/cat-widget2.jpg')}}" alt="">
+							</div>
+							<div class="content-details">
+								<h4 class="content-title mx-auto text-uppercase">Politics</h4>
+								<span></span>
+								<p>Be a part of politics</p>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="single-cat-widget">
+					<div class="content relative">
+						<div class="overlay overlay-bg"></div>
+						<a href="#" target="_blank">
+							<div class="thumb">
+								<img class="content-image img-fluid d-block mx-auto"
+									src="{{url_for('static' , filename='img/blog/cat-widget3.jpg')}}" alt="">
+							</div>
+							<div class="content-details">
+								<h4 class="content-title mx-auto text-uppercase">Food</h4>
+								<span></span>
+								<p>Let the food be finished</p>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ -->
+
+	<br><br>
+
+	<!-- have to pull by for loop -->
+{% for post in posts.items %}
+	<section class="post-content-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 posts-list">
+					<article class="single-post row media content-section">
+						<div class="col-lg-3  col-md-3 meta-details">
+							<img class="rounded-circle article-img"
+								src="{{url_for('static',filename ='profile_pics/'+ post.author.image )}}">
+								<br>
+							<div class="user-details row">
+								<p class="user-name col-lg-12 col-md-12 col-6"><a
+										href="{{ url_for('user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
+									<span class="lnr lnr-user"></span></p>
+								<p class="date col-lg-12 col-md-12 col-6">{{ post.date_posted.strftime('%Y-%m-%d') }}
+									<span class="lnr lnr-calendar-full"></span></p>
+							</div>
+						</div>
+						<div class="col-lg-9 col-md-9 media-body ">
+							{% if post.img_file %}
+							<div class="feature-img">
+								<img src="{{url_for('static' , filename='img/blog/'+ post.img_file)}}" alt="">
+							</div>
+							<div>
+								<a class="article-title post-title" href="{{url_for('post', post_id=post.id)}}">
+									<h3>{{ post.title }}</h3>
+								</a>
+
+								<hr>
+								<p class="excert article-content">
+									{{ post.content[0:180] }}......
+								</p>
+								<a href="{{url_for('post', post_id=post.id)}}" class="primary-btn">View More</a>
+							</div>
+							{% else %}
+							<div>
+								<a class="article-title post-title" href="{{url_for('post', post_id=post.id)}}">
+									<h3>{{ post.title }}</h3>
+								</a>
+
+								<hr>
+								<p class="excert article-content">
+									{{ post.content }}
+								</p>
+								<a href="#" class="primary-btn">View More</a>
+							</div>
+							{% endif %}
+						</div>
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endfor %}
+
+
+<nav class="blog-pagination justify-content-center d-flex">
+	<ul class="pagination">
+{% for page_num in posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2,) %}
+   {% if page_num %}
+
+	  {% if posts.page==page_num%}
+	  
+			<a class="btn primary-btn mb-4  justify-content-right " href="{{url_for('home' , page = page_num ,)}}">{{ page_num }}</a>
+	
+	   {% else %}
+	   
+          <a class="btn primary-btn mb-4 justify-content-right  " href="{{url_for('home' , page = page_num ,)}}">{{ page_num }}</a>
+	
+       {%endif %}
+    
+   {% else %}
+   .....
+
+   {% endif %}
+
+   ....
+{% endfor %}
+
+</ul>
+</nav>
+
+	
+
+
+	{% endblock %}

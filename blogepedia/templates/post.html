@@ -1,0 +1,162 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<!-- Start Banner Area -->
+<section class="banner-area relative">
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					Posts
+				</h1>
+				<p>Here you go ...<br>
+					know more about your favourite topic 
+				</p>
+				<div class="link-nav">
+					<span class="box">
+						<a href="{{url_for('home')}}">Home </a>
+						<i class="lnr lnr-arrow-right"></i>
+						<a href="{{url_for('post',post_id = post.id)}}">Post : {{post.title}}</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rocket-img">
+		<img src="{{url_for('static' , filename='img/rocket.png')}}" alt="">
+	</div>
+</section>
+<!-- End Banner Area -->
+
+<!-- about information -->
+<style>
+	body {
+		margin-top: 20px;
+		background: #ffffff;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.account-img {
+		height: 125px;
+		width: 125px;
+		margin-right: 20px;
+		margin-bottom: 16px;
+	}
+
+	.form-control {
+		font-size: 18px;
+	}
+</style>
+
+<br>
+<br>
+<section class="post-content-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 posts-list">
+				<article class="single-post row media content-section">
+					<div class="col-lg-3  col-md-3 meta-details">
+						<img class="rounded-circle article-img"
+							src="{{url_for('static',filename ='profile_pics/'+ post.author.image )}}">
+						<br>
+						<div class="user-details row">
+							<p class="user-name col-lg-12 col-md-12 col-6"><a
+									href="{{ url_for('user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
+								<span class="lnr lnr-user"></span></p>
+							<p class="date col-lg-12 col-md-12 col-6">{{ post.date_posted.strftime('%Y-%m-%d') }}
+								<span class="lnr lnr-calendar-full"></span></p>
+						</div>
+					</div>
+					<div class="col-lg-9 col-md-9 media-body ">
+						{% if post.img_file %}
+						<div class="feature-img">
+							<img src="{{url_for('static' , filename='img/blog/'+ post.img_file)}}" alt="">
+						</div>
+						<div>
+							<a class="article-title post-title">
+								<h3>{{ post.title }}</h3>
+							</a>
+							<hr>
+							<p class="excert article-content">
+								{{ post.content }}
+							</p>
+
+							{% if post.author==current_user %}
+							<div>
+								<a class="genric-btn primary btn-sm mt-1 mb-1"
+									href="{{url_for('update_post' , post_id=post.id)}}">Update</a>
+								<span></span>
+								<!-- <form action="" method="POST"> -->
+								<!-- <a class= "genric-btn danger btn-sm mt-1 mb-1" href="{{url_for('delete_post',post_id=post.id)}}" >Delete</a> -->
+							
+								<!-- <button type="button" class="genric-btn danger btn-sm m-1" href="{{url_for('delete_post',post_id=post.id)}}">Delete</button> -->
+								<!-- </form> -->
+								<button type="button" class="genric-btn danger btn-sm m-1" data-toggle="modal"
+									data-target="#deleteModal">Delete</button>
+							</div>
+							{% endif %}
+						</div>
+						
+						{% else %}
+						<div>
+							<a class="article-title post-title">
+								<h3>{{ post.title }}</h3>
+							</a>
+
+							<hr>
+							<p class="excert article-content">
+								{{ post.content }}
+							</p>
+
+							{% if post.author==current_user %}
+							<div>
+								<a class="genric-btn primary btn-sm mt-1 mb-1"
+									href="{{url_for('update_post' , post_id=post.id)}}">Update</a>
+
+								<!-- <form action="{{url_for('delete_post',post_id=post.id)}}" method="POST"> -->
+									<!-- <button type="button" class="genric-btn danger btn-sm m-1" >Delete</button> -->
+								<!-- <a class= "genric-btn danger btn-sm mt-1 mb-1" href="{{url_for('delete_post',post_id=post.id)}}" >Delete</a> -->
+							   <!-- </form>  -->
+								<button type="button" class="genric-btn danger btn-sm m-1" data-toggle="modal"
+									data-target="#deleteModal">Delete</button>
+							</div>
+							{% endif %}
+
+						</div>
+						{% endif %}
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<h2>Are you sure you want to delete the post?</h2>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<!-- action="" means that it will post it back to the current route -->
+				<form action="{{url_for('delete_post' , post_id = post.id )}}" method="POST">
+					<input class="btn btn-danger" type="submit" value="Delete">
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="{{url_for('static' , filename='img/fav.png') }}">
+	<!-- Author Meta -->
+	<meta name="author" content="codepixer">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	{% if title %}
+	<title>Blogepedia - {{title}}</title>
+	{% else %}
+	<title>Blogepedia</title>
+	{% endif %}
+
+	<!--Google Font============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet">
+
+
+  <!-- Custom fonts for this template -->
+  <link href="{{url_for('static' , filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<!--
+			CSS
+			============================================= -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+	<link rel="stylesheet" href="{{ url_for('static' , filename ='css/linearicons.css') }}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/animate.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/owl.carousel.css')}}">
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/main.css')}}">
+</head>
+
+<body>
+	<!-- Start Header Area -->
+	<header id="header">
+		<div class="container">
+			<div class="row align-items-center justify-content-between d-flex">
+				<div id="logo">
+					<a href="{{url_for('home')}}"><h1>Blogepedia</h1></a>
+				</div>
+
+				<nav id="nav-menu-container">
+					<ul class="nav-menu">
+						{% if current_user.is_authenticated %}
+						<li><a href="{{ url_for('home') }}">Home</a></li>
+						<li><a href="{{ url_for('account') }}">Account</a></li>
+						<li><a href="{{ url_for('new_post') }}">New Post</a></li>
+						<li><a href="{{ url_for('about') }}">About</a></li>
+						<li><a href="{{ url_for('contact') }}">Contact</a></li>
+						<li><a href="{{ url_for('logout') }}">LogOut</a></li>
+						{% else %}
+					   <li><a href="{{ url_for('home') }}">Home</a></li>
+						<li><a href="{{ url_for('about') }}">About</a></li>
+						<li><a href="{{ url_for('login') }}">Login</a></li>
+						<li><a href="{{ url_for('register') }}">Register</a></li>
+						<li><a href="{{ url_for('contact') }}">Contact</a></li>
+						{% endif %}
+					</ul>
+				</nav><!-- #nav-menu-container -->
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->
+
+
+	<!-- code for enabling the flash bar -->
+<main role="main" >
+{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	   {% for category,message in messages %}
+		  <div class="alert alert-{{ category }} alert-dismissible"  role="alert">
+			  {{ message}}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+		  </div>
+	   {% endfor %}
+	{% endif %}
+{% endwith %}
+
+	{% block body %}{% endblock%}
+	
+
+</main>    
+    
+    <hr>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              <!-- target ="_blank is basically given t open in new tab" -->
+              <a href="#" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+          <p class="copyright text-muted text-center">Copyright &copy;Blogepedia 2020</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+	<!-- ####################### Start Scroll to Top Area ####################### -->
+	<div id="back-top">
+		<a title="Go to Top" href="#"></a>
+	</div>
+	<!-- ####################### End Scroll to Top Area ####################### -->
+
+	<script src="{{url_for('static' , filename='js/vendor/jquery-2.2.4.min.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	 crossorigin="anonymous"></script>
+	<script src="{{url_for('static' , filename='js/vendor/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="{{url_for('static' , filename='js/easing.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/hoverIntent.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/superfish.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/jquery.ajaxchimp.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/jquery.magnific-popup.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/owl.carousel.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/owl-carousel-thumb.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/jquery.sticky.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/jquery.nice-select.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/parallax.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/waypoints.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/wow.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/jquery.counterup.min.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/mail-script.js')}}"></script>
+	<script src="{{url_for('static' , filename='js/main.js')}}"></script>
+</body>
+
+</html>

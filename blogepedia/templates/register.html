@@ -1,0 +1,247 @@
+{% extends "layout.html" %}
+{% block body %}
+
+	<!-- Start Banner Area -->
+	<section class="banner-area relative">
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Register
+					</h1>
+					<p>Join the Community today...<br>Register Yourself</p>
+					<div class="link-nav">
+						<span class="box">
+							<a href="{{ url_for('home') }}">Home </a>
+							<i class="lnr lnr-arrow-right"></i>
+							<a href="{{ url_for('register') }}">Register</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="rocket-img">
+			<img src="{{url_for('static' , filename='img/rocket.png')}}" alt="">
+		</div>
+	</section>
+	<!-- End Banner Area -->
+<hr>
+
+	<style>
+		body {
+			color: #fff;
+			background: #0e3249;
+			font-family: 'Roboto', sans-serif;
+		}
+		.form-control {
+			font-size: 15px;
+		}
+		.form-control, .form-control:focus, .input-group-text {
+			border-color: #e1e1e1;
+		}
+		.form-control, .btn {        
+			border-radius: 3px;
+		}
+		.signup-form {
+			width: 400px;
+			margin: 0 auto;
+			padding: 30px 0;		
+		}
+		.signup-form form {
+			color: #999;
+			border-radius: 3px;
+			margin-bottom: 15px;
+			background: #fff;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			padding: 30px;
+		}
+		.signup-form h2 {
+			color: #333;
+			font-weight: bold;
+			margin-top: 0;
+		}
+		.signup-form hr {
+			margin: 0 -30px 20px;
+		}
+		.signup-form .form-group {
+			margin-bottom: 20px;
+		}
+		.signup-form label {
+			font-weight: normal;
+			font-size: 15px;
+		}
+		.signup-form .form-control {
+			min-height: 38px;
+			box-shadow: none !important;
+		}	
+		.signup-form .input-group-addon {
+			max-width: 42px;
+			text-align: center;
+		}	
+		.signup-form .btn, .signup-form .btn:active {        
+			font-size: 16px;
+			font-weight: bold;
+			background: #0e3249 !important;
+			border: none;
+			min-width: 140px;
+		}
+		.signup-form .btn:hover, .signup-form .btn:focus {
+			background: #4fa1c7 !important;
+		}
+		.signup-form a {
+			color: #fff;	
+			text-decoration: underline;
+		}
+		.signup-form a:hover {
+			text-decoration: none;
+		}
+		.signup-form form a {
+			color: #19aa8d;
+			text-decoration: none;
+		}	
+		.signup-form form a:hover {
+			text-decoration: underline;
+		}
+		.signup-form .fa {
+			font-size: 21px;
+		}
+		.signup-form .fa-paper-plane {
+			font-size: 18px;
+		}
+		.signup-form .fa-check {
+			color: #fff;
+			left: 17px;
+			top: 18px;
+			font-size: 7px;
+			position: absolute;
+		}
+		</style>
+
+		<div class="signup-form">
+			<form action="" method="post">
+				{{ form.hidden_tag() }}
+				<fieldset class="form-group">
+					<h2>Sign Up</h2>
+				<p>Please fill in this form to create an account!</p>
+				<hr>
+
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text ">
+								<span class="fa fa-user"></span>
+							</span>    
+						   </div>            
+							{% if form.username.errors %}
+							{{ form.username(class="form-control is-invalid")}}
+							<div  class="invalid-feedback">
+								{% for error in form.username.errors %}
+								<span>
+                                  {{ error }}
+								</span>
+								{% endfor %}
+							</div>
+							{% else %}
+							{{ form.username(class="form-control ")}}
+						{% endif %}
+						
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-paper-plane"></i>
+							</span>                    
+						</div>
+						<!-- inorder to check the validity of the form -->
+						{% if form.email.errors %}
+							{{ form.email(class="form-control is-invalid")}}
+							<div  class="invalid-feedback">
+								{% for error in form.email.errors %}
+								<span>
+                                  {{ error }}
+								</span>
+								{% endfor %}
+							</div>
+							{% else %}
+							{{ form.email(class="form-control ")}}
+						{% endif %}
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-lock"></i>
+							</span>                    
+						</div>
+
+						{% if form.password.errors %}
+						{{ form.password(class="form-control is-invalid")}}
+						<div  class="invalid-feedback">
+							{% for error in form.password.errors %}
+							<span>
+							  {{ error }}
+							</span>
+							{% endfor %}
+						</div>
+						{% else %}
+						{{ form.password(class="form-control ")}}
+					{% endif %}
+					</div>
+				</div>
+					
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fa fa-lock"></i>
+								<i class="fa fa-check"></i>
+							</span>                    
+						</div>
+					
+							{% if form.confirmPassword.errors %}
+							{{ form.confirmPassword(class="form-control is-invalid")}}
+							<div  class="invalid-feedback">
+								{% for error in form.confirmPassword.errors %}
+								<span>
+                                  {{ error }}
+								</span>
+								{% endfor %}
+							</div>
+							{% else %}
+							{{ form.confirmPassword(class="form-control ")}}
+						{% endif %}
+						
+					</div>
+
+				</div>
+	
+				<div class="form-group">
+					<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+				</div>
+
+				</fieldset>
+
+				<div class="form-group">
+					{{ form.submit( class="btn btn-primary btn-lg")}}
+				</div>
+
+			</form>
+
+			<div class="text-center border-top pt-3 text-muted">
+				
+					Already have an account? <a href="{{url_for('login')}}">Login here</a>
+				
+			</div>
+
+		</div>
+
+
+
+	{% endblock %}
+
+

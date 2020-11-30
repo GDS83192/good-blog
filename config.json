@@ -1,0 +1,8 @@
+{
+    "params":
+    {
+        "local_uri": "postgresql://postgres:12aer56uil90@localhost/blogepedia",
+        "prod_uri":"postgresql://postgres:12aer56uil90@localhost/blogepedia"
+
+    }
+}

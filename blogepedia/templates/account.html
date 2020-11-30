@@ -1,0 +1,214 @@
+{% extends "layout.html" %}
+{% block body %}
+`
+<!-- Start Banner Area -->
+<section class="banner-area relative">
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					Profie
+				</h1>
+				<p>Edit Your Profile</p>
+				<div class="link-nav">
+					<span class="box">
+						<a href="{{url_for('home')}}">Home </a>
+						<i class="lnr lnr-arrow-right"></i>
+						<a href="{{url_for('account')}}">Account</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rocket-img">
+		<img src="{{url_for('static' , filename='img/rocket.png')}}" alt="">
+	</div>
+</section>
+<!-- End Banner Area -->
+
+<!-- about information -->
+<style>
+	body {
+		margin-top: 20px;
+		background: #0e3249;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.account-img {
+		height: 125px;
+		width: 125px;
+		margin-right: 20px;
+		margin-bottom: 16px;
+	}
+
+	.form-control {
+			font-size: 18px;
+		}
+</style>
+<br>
+<br>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+	<div class="content-section">
+		<div class="row flex-lg-nowrap">
+			<div class="col">
+				<div class="row">
+					<div class="col mb-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="e-profile">
+									<form class="form" method="POST" action="" enctype="multipart/form-data">
+										{{ form.hidden_tag() }}
+									<div class="media">
+
+										<div class="row">
+											<div class="col-12 col-sm-auto mb-3">
+												<img class="rounded-circle account-img" src="{{ image }}">
+											</div>
+
+											<div
+												class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+												<div class="text-center text-sm-left mb-2 mb-sm-0">
+													<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+														{{ current_user.username }}</h4>
+													<p class="mb-0">{{ current_user.email }}</p>
+
+													<br>
+													<div class="form-group">
+														{{  form.picture.label(class="btn primary-btn") }}
+														{{  form.picture(class ="form-control-file") }}
+														{% if form.picture.errors %}
+														{% for error in form.picture.errors %}
+														<span class="text-danger">{{ error }}</span><br>
+														{% endfor %}
+														{% endif %}
+
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+
+
+									<ul class="nav nav-tabs">
+										<li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+									</ul>
+									
+									<div class="tab-content pt-3">
+										<div class="tab-pane active">
+											
+												<fieldset class="form-group">
+													<div class="row">
+														<div class="col">
+															<div class="row">
+																<div class="col">
+																	<div class="form-group">
+																		{{  form.username.label(class="form-control-label") }}
+
+																		{% if form.username.errors %}
+																			{{  form.username(class="form-control form-control-lg  is-invalid") }}
+																			<div class="invalid-feedback">
+																				{% for error in form.username.errors %}
+																				<span>
+																					{{ error }}
+																				</span>
+																				 {% endfor %}
+																			</div>
+																		 {% else %}
+																			  {{  form.username(class="form-control form-control-lg ") }}
+													  
+																		{% endif%}
+																	</div>
+																</div>
+															</div>
+
+															<div class="row">
+																<div class="col">
+																	<div class="form-group">
+																		{{  form.email.label(class="form-control-label") }}
+
+																		{% if form.email.errors %}
+																			{{  form.email(class="form-control form-control-lg  is-invalid") }}
+																			<div class="invalid-feedback">
+																				{% for error in form.email.errors %}
+																				<span>
+																					{{ error }}
+																				</span>
+																				 {% endfor %}
+																			</div>
+																		 {% else %}
+																			  {{  form.email(class="form-control form-control-lg ") }}
+													  
+																		{% endif%}
+																	</div>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col mb-3">
+																	<div class="form-group">
+																		<label>About</label>
+																		<textarea class="form-control" rows="5"
+																			placeholder="My Bio"></textarea>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</fieldset>
+
+
+												<div class="row form-group">
+													<div class="col d-flex justify-content-end">
+
+														<strong>{{  form.submit(class="btn primary-btn") }}</strong>
+
+													</div>
+												</div>
+
+											
+
+										</div>
+									</div>
+								</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-3 mb-3">
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="px-xl-2">
+									<button type="button" class="btn btn-block btn-quaternary">
+										<i class="fa fa-sign-out"></i>
+										<span><a href="{{url_for('logout')}}"><strong>Logout</strong></a></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title font-weight-bold">Support</h6>
+								<p class="card-text">Get fast, free help from our friendly assistants.</p>
+								<button type="button" class="btn btn-block btn-quaternary">
+									<i class="fa fa-phone"></i>
+									<h6><a href="{{url_for('contact')}}"><strong>Contact Us</strong></a></h6>
+									</button>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

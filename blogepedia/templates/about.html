@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block body %}
+
+	<!-- Start Banner Area -->
+	<section class="banner-area relative">
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						About Us
+					</h1>
+					<p>Working towards better world</p>
+					<div class="link-nav">
+						<span class="box">
+							<a href="{{url_for('home')}}">Home </a>
+							<i class="lnr lnr-arrow-right"></i>
+							<a href="{{url_for('about')}}">About Us</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="rocket-img">
+			<img src="{{url_for('static' , filename='img/rocket.png')}}" alt="">
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!-- about information -->
+
+       <br>
+        <br>
+	<section class="post-content-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 posts-list">
+					<article class="single-post row media content-section">
+						<p>Hello geeks, This is my first web -app which I have developed using flask and deployed it on Heroku.
+							 This is a blogging app where the users can create their account and post their blogs on any topic 
+							 their choice.There are many features which will be added in the coming time like the password resetting 
+							 option, searching the blogs on the basis of various category onto which the blog was written and search 
+							 feature which is present on the home page is disabled and it will be funcitoning soon once we have a 
+							 minimum number of posts here. We will be alos adding 
+							the trending and liking and commenting option as well as a upvote option. <br> So stay connected. <br> Happy Blogging.....</p>
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	{% endblock %}
+
+

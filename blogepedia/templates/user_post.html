@@ -1,0 +1,116 @@
+{% extends  "layout.html" %}
+{% block body %}
+
+<!-- Start Banner Area -->
+<section class="banner-area relative">
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					Posts by {{user.username}}
+				</h1>
+				<p>In the history of modern astronomy, there is probably no one greater leap forward than the building
+					and launch of
+					the space telescope.</p>
+				<div class="link-nav">
+					<span class="box">
+						<a href="{{url_for('home')}}">Home </a>
+						<i class="lnr lnr-arrow-right"></i>
+						<a href="{{url_for('user_posts' , username = user.usernmae)}}">{{user.username}} Post</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rocket-img">
+		<img src="{{url_for('static' , filename='img/rocket.png')}}" alt="">
+	</div>
+</section>
+
+<br>
+<br>
+
+
+
+{% for post in posts.items %}
+	<section class="post-content-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 posts-list">
+					<article class="single-post row media content-section">
+						<div class="col-lg-3  col-md-3 meta-details">
+							<img class="rounded-circle article-img"
+								src="{{url_for('static',filename ='profile_pics/'+ post.author.image )}}">
+								<br>
+							<div class="user-details row">
+								<p class="user-name col-lg-12 col-md-12 col-6"><a
+										href="{{ url_for('user_posts',username=post.author.username) }}">{{ post.author.username }}</a>
+									<span class="lnr lnr-user"></span></p>
+								<p class="date col-lg-12 col-md-12 col-6">{{ post.date_posted.strftime('%Y-%m-%d') }}
+									<span class="lnr lnr-calendar-full"></span></p>
+							</div>
+						</div>
+						<div class="col-lg-9 col-md-9 media-body ">
+							{% if post.img_file %}
+							<div class="feature-img">
+								<img src="{{url_for('static' , filename='img/blog/'+ post.img_file)}}" alt="">
+							</div>
+							<div>
+								<a class="article-title post-title" href="{{url_for('post', post_id=post.id)}}">
+									<h3>{{ post.title }}</h3>
+								</a>
+
+								<hr>
+								<p class="excert article-content">
+									{{ post.content }}
+								</p>
+								<a href="{{url_for('post', post_id=post.id)}}" class="primary-btn">View More</a>
+							</div>
+							{% else %}
+							<div>
+								<a class="article-title post-title" href="{{url_for('post', post_id=post.id)}}">
+									<h3>{{ post.title }}</h3>
+								</a>
+
+								<hr>
+								<p class="excert article-content">
+									{{ post.content }}
+								</p>
+								<a href="#" class="primary-btn">View More</a>
+							</div>
+							{% endif %}
+						</div>
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endfor %}
+
+<nav class="blog-pagination justify-content-center d-flex">
+	<ul class="pagination">
+{% for page_num in posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2,) %}
+   {% if page_num %}
+
+	  {% if posts.page==page_num%}
+	  
+			<a class="btn primary-btn mb-4  justify-content-right " href="{{url_for('user_posts' , page = page_num ,username = user.username)}}">{{ page_num }}</a>
+	
+	   {% else %}
+	   
+          <a class="btn primary-btn mb-4 justify-content-right  " href="{{url_for('user_posts' , page = page_num ,username=user.username)}}">{{ page_num }}</a>
+	
+       {%endif %}
+    
+   {% else %}
+   .....
+
+   {% endif %}
+
+   ....
+{% endfor %}
+
+</ul>
+</nav>
+
+{% endblock %}
